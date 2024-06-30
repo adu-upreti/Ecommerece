@@ -1,28 +1,26 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from product.models import Products,Category
 
 
 
 
 
 def Home(request):
-    return render(request,"index.html")
+    category_list = Category.objects.all()
+    product_list  = Products.objects.all()
+    datas={
+        'categories':category_list, 
+        'products':product_list
+    }
+    return render(request,"index.html",datas)
 
+
+def Userpoducts(request):
+    return render(request,"product.html")
 
 def Single(request):
     return render(request,"single-product.html")
 
 def About(request):
     return render(request,"about.html")
-
-
-
-
-def Login(request):
-    return render(request,"admin/login.html")
-def A_product(request):
-    return render(request,"admin/products.html")
-def Dashboard(request):
-    return render(request,"admin/dashboard.html")
-
-

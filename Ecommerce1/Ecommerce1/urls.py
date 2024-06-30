@@ -16,30 +16,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from.viwes import Home,About,A_product,Dashboard
+from.viwes import Home,About,Userpoducts,Single
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 
 urlpatterns = [
-    path('admin-dashboard/',include('accounts.urls')),
-    path('dashboard/',Dashboard,name='dashboard'),
-    path('myadmin/products/',A_product,name="adminproduct"),
+
+    path('admin-dashboard/',include('account.urls')),
+    path('admin-dashboard/',include('myadmin.urls')),
     path('products/' , include('product.urls')),
-    # path('login/',include('alogin.urls')),
-
-
-
 
 
 
 
     path('admin/', admin.site.urls),
-    path('',Home),
-    path('contact/' , include('contact.urls')),
-    # path('products/',Product),
+
+
+    path('',Home,name="home"),
     path('about/',About),
+    path('product/',Userpoducts,name="userproduct"),
+    path('single-product/',Single,name="singleproduct"),
+    path('contact/' , include('contact.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
