@@ -8,13 +8,17 @@ def ProductForm(request):
     #     'product_active_page': 'active',
     #     'categories': Category.objects.all(),
     # }
-
+    print(request.POST.items)
     if request.method == "POST":
+        print(request.FILES)
         form = product_form(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponse("Product is saved.")
+        else:
+            print(form.errors)
     else:
+        
         form = product_form()
 
     return render(request, "adminfile/add-product.html", {"form": form})

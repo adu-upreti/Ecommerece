@@ -10,7 +10,7 @@ class category_form(forms.ModelForm):
 class product_form(forms.ModelForm):
         class Meta:
          model = Products
-         fields = "__all__"
+         exclude = ["image"]
          widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control validate', 'required': 'required'}),
             'description': forms.Textarea(attrs={'class': 'form-control validate', 'rows': 3, 'required': 'required'}),
