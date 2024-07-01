@@ -1,36 +1,23 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from product.models import Category
-from myadmin.forms import Product_Form
-
-
-
-
-
+from django.http import HttpResponse
+from .forms import product_form
+# from .models import Category
 
 def ProductForm(request):
-    data = {
-        'product_active_page': 'active',
-        'categories': Category.objects.all(),
-    }
+    # data = {
+    #     'product_active_page': 'active',
+    #     'categories': Category.objects.all(),
+    # }
 
-    # print(request.POST)
     if request.method == "POST":
-        # print("save product")
-        my_form = Product_Form(request.POST)
-        
-        if my_form.is_valid():
-            HttpResponseRedirect("adminfile/add-product.html")
-            # my_form.save()
+        form = product_form(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Product is saved.")
+    else:
+        form = product_form()
 
-            # data['success_message'] = "Product added successfully.........."
-
-        else:
-            form = Product_Form()
-            # data['errors'] = my_form.errors
-
-    return render(request, "adminfile/add-product.html",data,{"form":form})
-
+    return render(request, "adminfile/add-product.html", {"form": form})
 
 
 
