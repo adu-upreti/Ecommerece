@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from product.models import *
+from django.core.paginator import Paginator
 
 
  
@@ -32,5 +33,10 @@ def CONTACT(request):
 
 
 def PRODUCT(request):
+    products_list = Products.objects.all()
+    paginator = Paginator(products_list,6)
 
-    return render(request, "user/product.html") 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number) 
+
+    return render(request, "user/product.html", {'page_obj': page_obj}) 
