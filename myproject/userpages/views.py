@@ -40,3 +40,13 @@ def PRODUCT(request):
     page_obj = paginator.get_page(page_number) 
 
     return render(request, "user/product.html", {'page_obj': page_obj}) 
+
+def category_products_view(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    product_list = Products.objects.filter(category=category)
+    paginator = Paginator(product_list,3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "user/categories.html", {'page_obj': page_obj, 'category':category})

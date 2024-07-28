@@ -9,7 +9,7 @@
       <div class="col-lg-12">
         <div class="inner-content">
           <h2>Check Our Products</h2>
-          <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+          <span>Products under the category {{ category.cat_name }}</span>
         </div>
       </div>
     </div>
@@ -23,8 +23,8 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="section-heading">
-          <h2>Our Latest Products</h2>
-          <span>Check out all of our products.</span>
+          <h2>{{ category.cat_name }}</h2>
+          <span>Check out all of our products in this category.</span>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@
         </div>
       </div>
     {% else %}
-      <p>No products found.</p>
+      <p>No products found in this category.</p>
     {% endif %}
   </div>
 </section>
