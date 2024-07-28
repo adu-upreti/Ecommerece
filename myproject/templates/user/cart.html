@@ -1,0 +1,111 @@
+{% extends 'user/parent.html' %}
+{% load static %}
+{% load multiply %}
+{% block contents %}
+
+<!-- ***** Main Banner Area Start ***** -->
+<div class="page-heading" id="top">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="inner-content">
+          <h2>Shopping Cart</h2>
+          <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- ***** Product Area Starts ***** -->
+<section class="section" id="product">
+  <div class="container">
+    {% for item in cart_items %}
+    <div class="row cart-item">
+      <div class="col-lg-8">
+        <div class="left-images" style="width: 325px; height: 375px; overflow: hidden; position: relative;">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); transition: transform 0.5s ease;">
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="right-content">
+          <h4>{{ item.product.name }}</h4>
+          <span class="price">${{ item.product.price }}</span>
+          <ul class="stars">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+          </ul>
+          <span>{{ item.product.description }}</span>
+          <div class="quantity-content">
+            <div class="left-content">
+              <h6>No. of Orders</h6>
+            </div>
+            <div class="right-content">
+              <div class="quantity buttons_added">
+                <input type="button" value="-" class="minus" />
+                <input type="number" step="1" min="1" max="" name="quantity" value="{{ item.quantity }}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" />
+                <input type="button" value="+" class="plus" />
+              </div>
+            </div>
+          </div>
+          <div class="total">
+            <h4>Total: $<span class="item-total">{{ item.product.price|multiply:item.quantity }}</span></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="cart-total">
+      <div class="main-border-button"><a href="#">Add To Cart</a></div>
+    </div>
+  </div>
+</section>
+<!-- ***** Product Area Ends ***** -->
+
+{% include "user/subscribe.html" %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateQuantity = (input, isIncrement) => {
+      const parent = input.closest('.cart-item');
+      const priceElement = parent.querySelector('.price');
+      const itemTotalElement = parent.querySelector('.item-total');
+      const cartTotalElement = document.getElementById('cart-total');
+      
+      const price = parseFloat(priceElement.textContent.replace('$', ''));
+      const oldQuantity = parseInt(input.value);
+      const newQuantity = isIncrement ? oldQuantity + 1 : Math.max(oldQuantity - 1, 1);
+      
+      input.value = newQuantity;
+      const newItemTotal = (price * newQuantity).toFixed(2);
+      itemTotalElement.textContent = newItemTotal;
+      
+      let newCartTotal = 0;
+      document.querySelectorAll('.item-total').forEach(item => {
+        newCartTotal += parseFloat(item.textContent);
+      });
+      
+      cartTotalElement.textContent = newCartTotal.toFixed(2);
+    };
+
+    document.querySelectorAll('.minus').forEach(button => {
+      button.addEventListener('click', function() {
+        const input = button.nextElementSibling;
+        updateQuantity(input, false);
+      });
+    });
+
+    document.querySelectorAll('.plus').forEach(button => {
+      button.addEventListener('click', function() {
+        const input = button.previousElementSibling;
+        updateQuantity(input, true);
+      });
+    });
+  });
+</script>
+
+{% endblock contents %}
