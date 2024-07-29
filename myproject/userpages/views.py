@@ -1,9 +1,53 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from product.models import *
 from django.core.paginator import Paginator
+from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login
+from .forms import *
 
+
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect ('login')
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'user/register.html')
+
+
+
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect('user_home')
+        
+
+    else:
+        form = LoginForm()
+        return render(request, 'user/login.html', {'form': form})
+
+
+@login_required
+def user_home(request):
+    return render(request, 'user/index.html')
 
  
+
+
+
+
+
 
 
 def ABOUT(request):
@@ -41,6 +85,21 @@ def PRODUCT(request):
 
     return render(request, "user/product.html", {'page_obj': page_obj}) 
 
+# search 
+def product_search(request):
+    query = request.GET.get('query', '')
+    if query:
+        products = Products.objects.filter(name__icontains=query).order_by('name')
+    else:
+        products = Products.objects.all().order_by('name')
+
+    paginator = Paginator(products, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'user/search-form.html', {'page_obj': page_obj})
+
+
 def category_products_view(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     product_list = Products.objects.filter(category=category)
@@ -50,3 +109,4 @@ def category_products_view(request, category_id):
     page_obj = paginator.get_page(page_number)
 
     return render(request, "user/categories.html", {'page_obj': page_obj, 'category':category})
+

@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login,logout,authenticate,decorators
+from django.contrib.auth import authenticate,login,logout
+
+
 
 
 
@@ -44,5 +45,6 @@ def index(request):
 
 
 def register(request):
+
     
-    return render(request, 'adminfile/accounts.html')
+    return render(request, 'adminfile/register.html')

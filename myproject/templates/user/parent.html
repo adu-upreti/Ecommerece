@@ -3,40 +3,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-      
-      
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-      
-      <title>Hexashop Ecommerce HTML CSS Template</title>
-    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
+    <title>Hexashop Ecommerce HTML CSS Template</title>
 
-      
-      
-    <!-- Additional ' %}CSS Files -->
+    <!-- CSS Files -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/font-awesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-hexashop.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/owl-carousel.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
-    
-<!--
 
-TemplateMo 571 Hexashop
+</head>
 
-https://templatemo.com/tm-571-hexashop
+<body>
 
--->
-    </head>
-    
-    <body>
-    
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -44,57 +31,68 @@ https://templatemo.com/tm-571-hexashop
             <div></div>
             <div></div>
         </div>
-    </div>  
+    </div>
     <!-- ***** Preloader End ***** -->
-    
-    
+
+
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <nav class="main-nav">
+                    <nav class="main-nav" style="display: flex; align-items: center; justify-content: space-between;">
                         <!-- ***** Logo Start ***** -->
-                        <a href="{% url "home" %}" class="logo">
+                        <a href="{% url 'home' %}" class="logo">
                             <img src="{% static 'assets/images/logo.png' %}">
                         </a>
                         <!-- ***** Logo End ***** -->
-                                                 <!-- ***** Search Bar Start ***** -->
-                        <div class="search-bar">
-                            <div class="search-container">
-                                <input type="text" class="search-input" placeholder="Search...">
-                                <button class="search-button">
-                                    <i class="fas fa-search"></i>
-                                </button>
+                        <!-- ***** Search Bar Start ***** -->
+                        <form method="GET" action="{% url 'product_search' %}">
+                            <div class="search-bar" style="flex-grow: 1; margin: 0 20px;">
+                                <div class="search-container" style="display: flex; align-items: center;">
+                                    <input type="text" name="query" class="search-input" placeholder="Search..." style="flex-grow: 1; padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
+                                    <button class="search-button" style="margin-left: 10px; padding: 5px 10px; border: none; background-color: #333; color: white; border-radius: 5px;">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                         <!-- ***** Search Bar End ***** -->
                         <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li class="scroll-to-section"><a href="{% url "home" %}" class="">Home</a></li>
+                        <ul class="nav" style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center;">
+                            <li class="scroll-to-section" style="margin-right: 20px;"><a href="{% url 'home' %}">Home</a></li>
 
-                            <li class="submenu">
+                            <li class="submenu" style="margin-right: 20px;">
                                 <a href="javascript:;">Categories</a>
-                                <ul>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
                                     {% for i in categories %}
                                     <li class="scroll-to-section"><a href="{{i.cat_name}}">{{i.cat_name}}</a></li>
                                     {% endfor %}
                                 </ul>
                             </li>
 
-                            <li class="submenu">
+                            <li class="submenu" style="margin-right: 20px;">
                                 <a href="javascript:;">Pages</a>
-                                <ul>
-                                    <li><a href="{% url 'about-us'%}">About Us</a></li>
-                                    <li><a href="{% url 'productform'%}">Products</a></li>
-                                    {% comment %} <li><a href="{% url 'add_to_cart'%}">Single Product</a></li> {% endcomment %}
-                                    <li><a href="{% url 'contactus'%}">Contact Us</a></li>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'productform' %}">Products</a></li>
+                                    <li><a href="{% url 'contactus' %}">Contact Us</a></li>
                                 </ul>
                             </li>
-                           
-                            <li class="scroll-to-section"><a href="{% url 'register' %}">Login/Signup</a></li>
-                        </ul>        
-                        <a class='menu-trigger'>
+
+                            <li class="scroll-to-section" style="margin-right: 20px;"><a href="{% url 'adminregister' %}">Login/Signup</a></li>
+                            <li class="scroll-to-section" style="margin-right: 20px;">
+
+                            {% if user.is_authenticated %}
+                                <p>Welcome, {{ user.username }}! <a href="{% url 'user_home' %}">Home</a></p>
+                                <a href="{% url 'logout' %}">Logout</a>
+                            {% else %}
+                                <a href="{% url 'userlogin' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+                            {% endif %}
+
+                            </li>
+                        </ul>
+                        <a class='menu-trigger' style="cursor: pointer;">
                             <span>Menu</span>
                         </a>
                         <!-- ***** Menu End ***** -->
@@ -107,7 +105,6 @@ https://templatemo.com/tm-571-hexashop
     {% block contents %}
 
     {% endblock %}
-  
 
     <!-- ***** Footer Start ***** -->
     <footer>
@@ -153,9 +150,9 @@ https://templatemo.com/tm-571-hexashop
                 </div>
                 <div class="col-lg-12">
                     <div class="under-footer">
-                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved. 
-                        
-                        <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a></p>
+                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved.
+
+                            <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a></p>
                         <ul>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -167,7 +164,7 @@ https://templatemo.com/tm-571-hexashop
             </div>
         </div>
     </footer>
-    
+
 
     <!-- jQuery -->
     <script src="{% static 'assets/js/jquery-2.1.0.min.js' %}"></script>
@@ -183,33 +180,29 @@ https://templatemo.com/tm-571-hexashop
     <script src="{% static 'assets/js/scrollreveal.min.js' %}"></script>
     <script src="{% static 'assets/js/waypoints.min.js' %}"></script>
     <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
-    <script src="{% static 'assets/js/imgfix.min.js' %}"></script> 
-    <script src="{% static 'assets/js/slick.js' %}"></script> 
-    <script src="{% static 'assets/js/lightbox.js' %}"></script> 
-    <script src="{% static 'assets/js/isotope.js' %}"></script> 
-    
+    <script src="{% static 'assets/js/imgfix.min.js' %}"></script>
+    <script src="{% static 'assets/js/slick.js' %}"></script>
+    <script src="{% static 'assets/js/lightbox.js' %}"></script>
+    <script src="{% static 'assets/js/isotope.js' %}"></script>
+
     <!-- Global Init -->
     <script src="{% static 'assets/js/custom.js' %}"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
     <script>
-
-        $(function() {
+        $(function () {
             var selectedClass = "";
-            $("p").click(function(){
-            selectedClass = $(this).attr("data-rel");
-            $("#portfolio").fadeTo(50, 0.1);
-                $("#portfolio div").not("."+selectedClass).fadeOut();
-            setTimeout(function() {
-              $("."+selectedClass).fadeIn();
-              $("#portfolio").fadeTo(50, 1);
-            }, 500);
-                
+            $("p").click(function () {
+                selectedClass = $(this).attr("data-rel");
+                $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("." + selectedClass).fadeOut();
+                setTimeout(function () {
+                    $("." + selectedClass).fadeIn();
+                    $("#portfolio").fadeTo(50, 1);
+                }, 500);
+
             });
         });
-
     </script>
 
-  </body>
-</html>
+</body>
+
+</html
