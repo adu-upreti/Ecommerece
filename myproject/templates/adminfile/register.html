@@ -62,7 +62,7 @@
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">Account Settings</h2>
 
-              <form action="{% url 'register' %}" class="tm-signup-form row" method="post" enctype="multipart/form-data">
+              <form action="{% url 'adminregister' %}" class="tm-signup-form row" method="post" enctype="multipart/form-data">
                {% csrf_token %}
                
                 <div class="form-group col-lg-6">

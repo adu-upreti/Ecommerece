@@ -1,17 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from product.models import *
 
 
 
-def Home(request):
+def user_dashboard(request):
     product_list = Products.objects.all()
     category_list = Category.objects.all()
 
-    datas={
-        
+    data = {
+        'dashboard_active_page': 'active',
         'categories':category_list,
         'products':product_list,
-       
     }
+    return render(request, "user/index.html", data)
 
-    return render(request, "user/index.html",datas)
+
+
+
+

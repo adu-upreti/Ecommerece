@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'ecom_database',
+        'NAME':'ecommerce-project',
         'USER':'root',
         'PASSWORD':'',
         'HOST':'localhost',
@@ -159,6 +159,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
-AUTH_USER_MODEL = 'myadmin.CustomUser'
