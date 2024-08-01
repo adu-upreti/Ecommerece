@@ -1,0 +1,24 @@
+{% for ad in adview %}
+<div class="col-lg-6">
+    <div class="right-content">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="right-first-image">
+                    <div class="thumb">
+                        <div class="inner-content">
+                            <h4>{{ ad.name.name }}</h4>
+                            <span>{{ ad.tagline }}</span>
+                        </div>
+                        <div class="hover-content">
+                            <div class="inner">
+                                <h4>{{ ad.name.name }}</h4>
+                                <p>{{ ad.description }}</p>
+                                <div class="main-border-button">
+                                    <a href="{% url 'category_product' ad.name.id %}">Discover More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="{{ ad.image.url }}}" alt="">
+                    </div>
+                </div>
+            </div>

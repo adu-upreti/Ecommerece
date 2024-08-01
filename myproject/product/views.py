@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import ProductForm, CategoryForm
-from .models import Products, Category
+from .forms import *
+from .models import *
 
 def Product_form(request):
     if request.method == "POST":
@@ -61,6 +61,7 @@ def add_cat(request):
         form = CategoryForm()
     return render(request, "adminfile/add-category.html", {'form': form})
 
+
 # Delete category
 def delete_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
@@ -77,3 +78,26 @@ def A_product(request):
     }
 
     return render(request, "adminfile/products.html", datas)
+
+
+
+
+
+def ad_view(request):
+    if request.method == "POST":
+        form = AdForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Ad is saved successfully!")
+            return redirect('ad_view')
+        else:
+            messages.error(request, "There was an error saving the ad.")
+    else:
+        form = AdForm()
+
+    adview_list = AdManagement.objects.all()
+    context = {
+        'form': form,
+        'adview': adview_list
+    }
+    return render(request, 'adminfile/ad-management.html', context)

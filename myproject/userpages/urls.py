@@ -15,5 +15,4 @@ urlpatterns = [
     path('search/', views.product_search, name='product_search'),
 
 
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

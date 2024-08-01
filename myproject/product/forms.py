@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, Products
+from .models import *
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -11,13 +11,11 @@ class ProductForm(forms.ModelForm):
         model = Products
         fields = '__all__'
 
+class AdForm(forms.ModelForm):
+    class Meta:
+        model = AdManagement
+        fields = '__all__'
 
-        #  exclude = ["image"]
-        #  widgets = {
-        #     'name': forms.TextInput(attrs={'class': 'form-control validate', 'required': 'required'}),
-        #     'description': forms.Textarea(attrs={'class': 'form-control validate', 'rows': 3, 'required': 'required'}),
-        #     'category': forms.Select(attrs={'class': 'custom-select tm-select-accounts'}),
-        #     'price': forms.NumberInput(attrs={'class': 'form-control validate', 'data-large-mode': 'true'}),
-        # }
 
+ 
 

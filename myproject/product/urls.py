@@ -5,12 +5,13 @@ from . import views
 
 urlpatterns = [
     path('', views.A_product, name="admin_product"),
-    path('add-category/', views.add_cat, name="AddCategory"),
     path('add-product/', views.Product_form, name="product_form"),
     path('delete_category/<int:category_id>/', views.delete_category, name='delete_category'),
     path('delete_product/<int:product_id>/', views.delete_product, name='delete_product'),
-    path('delete-selected-products/', views.delete_selected_products, name='delete_selected_products'),  # Added for handling multiple deletions
+    path('delete-selected-products/', views.delete_selected_products, name='delete_selected_products'),  
     path('update-product/<int:product_id>/', views.update_product, name='update_product'),
+    path('add-category/', views.add_cat, name="AddCategory"),
+    path('ad-management/',views.ad_view, name='ad_view')
 ]
 
 if settings.DEBUG:

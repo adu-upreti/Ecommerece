@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from product.models import *
 from django.core.paginator import Paginator
 from django.shortcuts import render,redirect
-
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -65,4 +65,3 @@ def category_products_view(request, category_id):
     page_obj = paginator.get_page(page_number)
 
     return render(request, "user/categories.html", {'page_obj': page_obj, 'category':category})
-
