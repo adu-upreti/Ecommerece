@@ -22,7 +22,6 @@
                 </div>
             </div>
 
-            {% for ad in adview %}
             <div class="col-lg-6">
                 <div class="right-content">
                     <div class="row">
@@ -30,34 +29,88 @@
                             <div class="right-first-image">
                                 <div class="thumb">
                                     <div class="inner-content">
-                                        <h4>{{ ad.name.name }}</h4>
-                                        <span>{{ ad.tagline }}</span>
+                                        <h4>Women</h4>
+                                        <span>Best Clothes For Women</span>
                                     </div>
                                     <div class="hover-content">
                                         <div class="inner">
-                                            <h4>{{ ad.name.name }}</h4>
-                                            <p>{{ ad.description }}</p>
+                                            <h4>Women</h4>
+                                            <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="{% url 'category_product' ad.name.id %}">Discover More</a>
+                                                <a href="#">Discover More</a>
                                             </div>
                                         </div>
                                     </div>
-                                    {% if ad.image %}
-                                    <img src="{{ ad.image.url }}" alt="">
-                                    {% else %}
-                                    <img src="{% static 'assets/images/default-image.jpg' %}" alt="">
-                                    {% endif %}
+                                    <img src="{% static 'assets/images/baner-right-image-01.jpg' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="right-first-image">
+                                <div class="thumb">
+                                    <div class="inner-content">
+                                        <h4>Men</h4>
+                                        <span>Best Clothes For Men</span>
+                                    </div>
+                                    <div class="hover-content">
+                                        <div class="inner">
+                                            <h4>Men</h4>
+                                            <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                            <div class="main-border-button">
+                                                <a href="#">Discover More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img src="{% static 'assets/images/baner-right-image-02.jpg' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="right-first-image">
+                                <div class="thumb">
+                                    <div class="inner-content">
+                                        <h4>Kids</h4>
+                                        <span>Best Clothes For Kids</span>
+                                    </div>
+                                    <div class="hover-content">
+                                        <div class="inner">
+                                            <h4>Kids</h4>
+                                            <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                            <div class="main-border-button">
+                                                <a href="#">Discover More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img src="{% static 'assets/images/baner-right-image-03.jpg' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="right-first-image">
+                                <div class="thumb">
+                                    <div class="inner-content">
+                                        <h4>Accessories</h4>
+                                        <span>Best Trend Accessories</span>
+                                    </div>
+                                    <div class="hover-content">
+                                        <div class="inner">
+                                            <h4>Accessories</h4>
+                                            <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                            <div class="main-border-button">
+                                                <a href="#">Discover More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img src="{% static 'assets/images/baner-right-image-04.jpg' %}" alt="">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 </div>
-
 
 
 <!-- ***** Kids Area Starts ***** -->

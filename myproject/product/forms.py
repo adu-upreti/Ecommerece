@@ -11,10 +11,6 @@ class ProductForm(forms.ModelForm):
         model = Products
         fields = '__all__'
 
-class AdForm(forms.ModelForm):
-    class Meta:
-        model = AdManagement
-        fields = '__all__'
 
 
  

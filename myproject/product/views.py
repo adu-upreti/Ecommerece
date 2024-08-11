@@ -79,25 +79,3 @@ def A_product(request):
 
     return render(request, "adminfile/products.html", datas)
 
-
-
-
-
-def ad_view(request):
-    if request.method == "POST":
-        form = AdForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Ad is saved successfully!")
-            return redirect('ad_view')
-        else:
-            messages.error(request, "There was an error saving the ad.")
-    else:
-        form = AdForm()
-
-    adview_list = AdManagement.objects.all()
-    context = {
-        'form': form,
-        'adview': adview_list
-    }
-    return render(request, 'adminfile/ad-management.html', context)
