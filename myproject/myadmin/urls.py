@@ -11,7 +11,8 @@ urlpatterns = [
     path('logout/',views.Logout,name="adminlogout"),
     path('admin-dashboard/',views.admin_dashboard,name="admin_dashboard"),
     path('signup/',views.register, name="adminregister"),
-    path('forget/',views.Forget_pass, name='forget')
+    path('forget/',views.Forget_pass, name='forget'),
+     path('password_reset/', views.password_reset_request, name='password_reset'),
 
 ]
 
