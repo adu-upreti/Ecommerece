@@ -79,11 +79,6 @@ def register(request):
 
 
 
-def Forget_pass(request):
-
-    return render(request, 'adminfile/forget.html')
-
-
 
 
 def password_reset_request(request):
@@ -95,11 +90,11 @@ def password_reset_request(request):
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
-                    email_template_name = 'forget.html'
+                    email_template_name = 'adminfile/password_reset_email.html'
                     c = {
                         'email': user.email,
                         'domain': request.META['HTTP_HOST'],
-                        'site_domain': 'Your Site',
+                        'site_name': 'Your Site',
                         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                         'user': user,
                         'token': default_token_generator.make_token(user),
@@ -108,9 +103,9 @@ def password_reset_request(request):
                     email = render_to_string(email_template_name, c)
                     send_mail(subject, email, 'admin@yourdomain.com', [user.email], fail_silently=False)
                 messages.success(request, 'A password reset link has been sent to your email.')
-                return redirect("adminlogin")
+                return redirect('password_reset_done')
             else:
                 messages.error(request, 'No account found with this email address.')
     else:
         form = PasswordResetForm()
-    return render(request, "password_reset.html", {"form": form})
+    return render(request, 'adminfile/password_reset.html', {'form': form})
