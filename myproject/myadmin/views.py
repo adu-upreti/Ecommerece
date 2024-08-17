@@ -13,6 +13,9 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from django.contrib import messages
 
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
 
 def Login(request):
     data = {
@@ -79,33 +82,42 @@ def register(request):
 
 
 
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'pw_reset/password_reset.html'
+    email_template_name = 'pw_reset/password_reset_email.html'
+    subject_template_name = 'pw_reset/password_reset_subject'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('adminlogin')
 
 
-def password_reset_request(request):
-    if request.method == 'POST':
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            associated_users = User.objects.filter(email=email)
-            if associated_users.exists():
-                for user in associated_users:
-                    subject = "Password Reset Requested"
-                    email_template_name = 'adminfile/password_reset_email.html'
-                    c = {
-                        'email': user.email,
-                        'domain': request.META['HTTP_HOST'],
-                        'site_name': 'Your Site',
-                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                        'user': user,
-                        'token': default_token_generator.make_token(user),
-                        'protocol': 'http',
-                    }
-                    email = render_to_string(email_template_name, c)
-                    send_mail(subject, email, 'admin@yourdomain.com', [user.email], fail_silently=False)
-                messages.success(request, 'A password reset link has been sent to your email.')
-                return redirect('password_reset_done')
-            else:
-                messages.error(request, 'No account found with this email address.')
-    else:
-        form = PasswordResetForm()
-    return render(request, 'adminfile/password_reset.html', {'form': form})
+# def password_reset_request(request):
+#     if request.method == 'POST':
+#         form = PasswordResetForm(request.POST)
+#         if form.is_valid():
+#             email = form.cleaned_data['email']
+#             associated_users = User.objects.filter(email=email)
+#             if associated_users.exists():
+#                 for user in associated_users:
+#                     subject = "Password Reset Requested"
+#                     email_template_name = 'adminfile/password_reset_email.html'
+#                     c = {
+#                         'email': user.email,
+#                         'domain': request.META['HTTP_HOST'],
+#                         'site_name': 'Your Site',
+#                         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                         'user': user,
+#                         'token': default_token_generator.make_token(user),
+#                         'protocol': 'http',
+#                     }
+#                     email = render_to_string(email_template_name, c)
+#                     send_mail(subject, email, 'admin@yourdomain.com', [user.email], fail_silently=False)
+#                 messages.success(request, 'A password reset link has been sent to your email.')
+#                 return redirect('password_reset_done')
+#             else:
+#                 messages.error(request, 'No account found with this email address.')
+#     else:
+#         form = PasswordResetForm()
+#     return render(request, 'adminfile/password_reset.html', {'form': form})
