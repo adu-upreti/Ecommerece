@@ -26,6 +26,8 @@ def cart(request):
     total = sum(item.product.price * item.quantity for item in cart_items)
     return render(request, 'user/cart.html', {'cart_items': cart_items, 'total': total})
 
+def mycart(request):
+    return render(request, 'user/mycart.html')
 
 def CONTACT(request):
 

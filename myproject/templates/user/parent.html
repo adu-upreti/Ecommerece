@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-hexashop.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/owl-carousel.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/mycart.css' %}">
 
 </head>
 
@@ -80,8 +81,9 @@
                                 </ul>
                             </li>
 
-                            {% comment %} <li class="scroll-to-section" style="margin-right: 20px;"><a href="{% url 'adminregister' %}">Login/Signup</a></li>
-                            <li class="scroll-to-section" style="margin-right: 20px;"> {% endcomment %}
+                            <ul class="nav" style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center;">
+                                <li class="scroll-to-section" style="margin-right: 20px;"><a href="{% url 'mycart' %}">MyCart</a></li>
+
                                 {% if user.is_authenticated %}
                                 <li class="scroll-to-section" style="margin-right: 20px;">
                                 <a href="{% url 'adminlogout' %}">Logout</a>
